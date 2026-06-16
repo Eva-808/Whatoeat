@@ -1,5 +1,5 @@
 /* 今天吃什么 - 离线缓存 Service Worker */
-var CACHE = 'eatwhat-cache-v2';
+var CACHE = 'eatwhat-cache-v4';
 
 self.addEventListener('install', function (e) {
   e.waitUntil(

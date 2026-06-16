@@ -13,104 +13,138 @@
 <title>今天吃什么</title>
 <style>
 :root{
-  --bg:#F3EDE7; --card:#FFFEFC; --accent:#B08968; --accent2:#D4B499;
-  --text:#564A42; --sub:#A09182; --line:#EAE0D5; --danger:#C47B6E;
-  --chip:#F0E7DC; --chip-on:#B08968; --blush:#DFA68F;
+  --bg:#F4EEE7; --card:#FFFEFB; --accent:#C49A6C; --accent2:#E0BC8E;
+  --text:#574A3F; --sub:#A4948494; --sub2:#A99A89; --line:#ECE2D6; --danger:#C47B6E;
+  --chip:#F2EADF; --chip-on:#C49A6C;
+  --peach:#FBEADF; --sage:#E9EFDF; --lilac:#EEE8F2; --sky:#E2EDF0; --cream:#FBF3E2;
+  --hl:rgba(255,255,255,.85);
+  --soft:0 10px 22px -10px rgba(150,116,80,.34);
+  --soft-sm:0 6px 14px -8px rgba(150,116,80,.3);
+  --inset:inset 0 1.5px 0 var(--hl), inset 0 -2px 5px rgba(150,116,80,.06);
+  --spring:cubic-bezier(.34,1.56,.64,1);
 }
 *{box-sizing:border-box;-webkit-tap-highlight-color:transparent;}
 html,body{margin:0;padding:0;background:var(--bg);color:var(--text);
   font-family:-apple-system,"PingFang SC","Helvetica Neue",sans-serif;font-size:16px;}
-body{padding-bottom:calc(80px + env(safe-area-inset-bottom));}
-header{padding:calc(16px + env(safe-area-inset-top)) 20px 8px;display:flex;align-items:center;gap:10px;}
-header svg{flex:none;}
-header h1{font-size:21px;margin:0;letter-spacing:.5px;flex:1;}
-header .count{font-size:12.5px;color:var(--sub);}
+body{padding-bottom:calc(86px + env(safe-area-inset-bottom));}
+header{padding:calc(18px + env(safe-area-inset-top)) 22px 8px;display:flex;align-items:center;gap:11px;}
+header svg{flex:none;filter:drop-shadow(0 4px 8px rgba(150,116,80,.25));}
+header h1{font-size:22px;margin:0;letter-spacing:.5px;flex:1;font-weight:800;}
+header .count{font-size:12.5px;color:var(--sub2);}
 main{padding:8px 16px 16px;max-width:560px;margin:0 auto;}
 section{display:none;}
-section.on{display:block;animation:fade .22s ease;}
-@keyframes fade{from{opacity:0;transform:translateY(5px)}to{opacity:1;transform:none}}
+section.on{display:block;animation:fade .26s ease;}
+@keyframes fade{from{opacity:0;transform:translateY(6px)}to{opacity:1;transform:none}}
 
-/* ---- 通用 ---- */
-.card{background:var(--card);border-radius:20px;padding:18px;box-shadow:0 2px 12px rgba(146,118,94,.08);margin-bottom:12px;}
-.chips{display:flex;flex-wrap:wrap;gap:8px;}
-.chip{padding:7px 15px;border-radius:999px;background:var(--chip);color:#6B5B4E;
-  font-size:14px;border:1.5px solid transparent;cursor:pointer;user-select:none;transition:all .12s;}
-.chip.on{background:var(--chip-on);color:#FFFDF9;font-weight:600;box-shadow:0 2px 8px rgba(176,137,104,.3);}
-.chip.add{border:1.5px dashed #D8C5AF;background:transparent;color:var(--sub);}
-.btn{display:block;width:100%;border:none;border-radius:16px;padding:15px;font-size:17px;font-weight:700;
-  cursor:pointer;color:#FFFDF9;background:linear-gradient(135deg,#C7A487,#AE8765);letter-spacing:1px;}
-.btn.ghost{background:var(--chip);color:#8A6F52;}
-.btn.small{padding:11px;font-size:15px;border-radius:13px;}
-.btn:active{transform:scale(.98);}
-.row2{display:flex;gap:10px;}
+/* ---- 弹性回弹：按下快缩、松手回弹过冲 ---- */
+.pop{transition:transform .42s var(--spring);}
+.pop:active{transform:scale(.9);transition:transform .06s ease-out;}
+
+/* ---- 黏土卡片 ---- */
+.card{background:var(--card);border-radius:26px;padding:18px;
+  box-shadow:var(--soft),var(--inset);margin-bottom:14px;border:1px solid rgba(255,255,255,.7);}
+.chips{display:flex;flex-wrap:wrap;gap:9px;}
+.chip{padding:9px 16px;border-radius:999px;background:var(--chip);color:#7A6650;
+  font-size:14px;border:none;cursor:pointer;user-select:none;font-weight:600;
+  box-shadow:var(--soft-sm),inset 0 1px 0 var(--hl);transition:transform .42s var(--spring),background .15s,color .15s;}
+.chip:active{transform:scale(.9);transition:transform .06s ease-out;}
+.chip.on{background:var(--chip-on);color:#FFFCF6;box-shadow:0 8px 16px -7px rgba(196,154,108,.6),inset 0 1px 0 rgba(255,255,255,.35);}
+.chip.add{background:transparent;color:var(--sub2);box-shadow:none;border:1.5px dashed #DAC8B2;}
+.btn{display:block;width:100%;border:none;border-radius:22px;padding:16px;font-size:17px;font-weight:800;
+  cursor:pointer;color:#FFFCF6;background:linear-gradient(160deg,#D7B083,#C2935F);letter-spacing:1px;
+  box-shadow:0 12px 22px -10px rgba(180,140,95,.7),inset 0 2px 0 rgba(255,255,255,.4),inset 0 -3px 6px rgba(150,110,70,.18);}
+.btn.ghost{background:linear-gradient(160deg,#F4ECE0,#EADDCB);color:#8A6F52;
+  box-shadow:var(--soft-sm),inset 0 1.5px 0 var(--hl);}
+.btn.small{padding:13px;font-size:15px;border-radius:18px;}
+.row2{display:flex;gap:11px;}
 .row2>*{flex:1;}
-label.fl{display:block;font-size:13px;color:var(--sub);margin:15px 0 7px;letter-spacing:.5px;}
-input[type=text],textarea,select{width:100%;border:1.5px solid var(--line);border-radius:13px;
-  padding:12px;font-size:16px;background:#FFFDFA;color:var(--text);outline:none;font-family:inherit;}
-input:focus,textarea:focus{border-color:var(--accent2);}
-.muted{color:var(--sub);font-size:13px;}
-.banner{background:#F3E8D8;border-radius:15px;padding:11px 15px;font-size:13.5px;color:#8A7150;
-  margin-bottom:12px;display:flex;align-items:center;justify-content:space-between;gap:10px;}
-.banner button{border:none;background:#E3CBA8;border-radius:999px;padding:6px 13px;font-size:13px;font-weight:600;color:#6B5638;}
-.empty{text-align:center;color:var(--sub);padding:40px 10px;font-size:14.5px;line-height:2;}
-.empty .big{font-size:42px;}
+label.fl{display:block;font-size:13px;color:var(--sub2);margin:16px 0 8px;letter-spacing:.5px;font-weight:600;}
+input[type=text],textarea,select{width:100%;border:none;border-radius:16px;
+  padding:13px 14px;font-size:16px;background:#FBF5EC;color:var(--text);outline:none;font-family:inherit;
+  box-shadow:inset 0 2px 5px rgba(150,116,80,.12);}
+input:focus,textarea:focus{box-shadow:inset 0 2px 5px rgba(150,116,80,.12),0 0 0 3px rgba(224,188,142,.5);}
+.muted{color:var(--sub2);font-size:13px;}
+.banner{background:linear-gradient(160deg,#FBF0DD,#F5E6CC);border-radius:18px;padding:12px 16px;font-size:13.5px;color:#8A7150;
+  margin-bottom:14px;display:flex;align-items:center;justify-content:space-between;gap:10px;box-shadow:var(--soft-sm);}
+.banner button{border:none;background:#E7CDA4;border-radius:999px;padding:7px 14px;font-size:13px;font-weight:700;color:#6B5638;box-shadow:inset 0 1px 0 rgba(255,255,255,.5);}
+.empty{text-align:center;color:var(--sub2);padding:42px 10px;font-size:14.5px;line-height:2;}
+.empty .big{font-size:46px;display:block;margin-bottom:6px;}
 
-/* ---- 抽签 ---- */
-#pickBtn{margin-top:6px;padding:23px;font-size:20px;border-radius:24px;box-shadow:0 8px 22px rgba(176,137,104,.32);}
-.result{text-align:center;padding:28px 18px;border:1.5px dashed #E0D2C2;}
-.result .emoji{font-size:56px;animation:pop .38s ease;}
-@keyframes pop{0%{transform:scale(.3)}70%{transform:scale(1.15)}100%{transform:scale(1)}}
-.result h2{margin:12px 0 4px;font-size:27px;letter-spacing:1px;}
-.result .src{color:var(--sub);font-size:15px;}
-.result .tags{margin-top:12px;display:flex;gap:6px;justify-content:center;flex-wrap:wrap;}
-.result .tags span{background:var(--chip);border-radius:999px;padding:4px 11px;font-size:12.5px;color:#9A7B5F;}
-.result .note{margin-top:10px;font-size:14px;color:var(--sub);}
-.opt{display:flex;align-items:center;gap:8px;font-size:14px;color:var(--sub);margin-top:14px;}
-.opt input{width:18px;height:18px;accent-color:var(--accent);}
+/* ---- 抽签：便当格子 ---- */
+.bento{display:grid;grid-template-columns:1fr 1fr;gap:13px;margin-bottom:14px;}
+.bento .tile{border-radius:24px;padding:16px;box-shadow:var(--soft),var(--inset);border:1px solid rgba(255,255,255,.7);}
+.tile-h{font-size:13px;font-weight:700;color:#8A7358;margin-bottom:11px;display:flex;align-items:center;gap:5px;}
+.tile.cat{background:linear-gradient(160deg,#FFFEFB,#FBF1E2);}
+.tile.mood{background:linear-gradient(160deg,#FFFEFB,#F1ECF3);grid-column:1 / -1;}
+.optline{display:flex;align-items:center;gap:8px;font-size:13.5px;color:var(--sub2);margin-top:4px;background:var(--cream);
+  border-radius:16px;padding:11px 14px;box-shadow:inset 0 1px 4px rgba(150,116,80,.1);}
+.optline input{width:19px;height:19px;accent-color:var(--accent);}
+#pickBtn{margin-top:2px;padding:24px;font-size:21px;border-radius:30px;}
+.result{text-align:center;padding:30px 18px;background:linear-gradient(160deg,#FFFEFB,#FBF2E4);}
+.result .emoji{font-size:60px;display:inline-block;animation:pop .5s var(--spring);
+  filter:drop-shadow(0 8px 10px rgba(150,116,80,.25));}
+@keyframes pop{0%{transform:scale(.3) rotate(-12deg)}60%{transform:scale(1.18) rotate(6deg)}100%{transform:scale(1) rotate(0)}}
+.result h2{margin:14px 0 4px;font-size:29px;letter-spacing:1px;font-weight:800;}
+.result .src{color:var(--sub2);font-size:15px;}
+.result .tags{margin-top:13px;display:flex;gap:7px;justify-content:center;flex-wrap:wrap;}
+.result .tags span{background:#F3EADF;border-radius:999px;padding:5px 12px;font-size:12.5px;color:#9A7B5F;box-shadow:inset 0 1px 0 var(--hl);}
+.result .note{margin-top:11px;font-size:14px;color:var(--sub2);}
 
 /* ---- 清单 ---- */
-.group-t{font-size:13.5px;color:var(--sub);margin:18px 6px 8px;font-weight:600;letter-spacing:1px;}
-.item{background:var(--card);border-radius:17px;padding:14px 15px;margin-bottom:9px;
-  display:flex;align-items:center;gap:12px;box-shadow:0 1px 7px rgba(146,118,94,.07);}
+.group-t{font-size:13.5px;color:var(--sub2);margin:20px 8px 9px;font-weight:700;letter-spacing:1px;}
+.item{background:var(--card);border-radius:20px;padding:15px 16px;margin-bottom:10px;
+  display:flex;align-items:center;gap:12px;box-shadow:var(--soft-sm),var(--inset);border:1px solid rgba(255,255,255,.6);
+  transition:transform .42s var(--spring);}
+.item:active{transform:scale(.97);transition:transform .06s ease-out;}
 .item .info{flex:1;min-width:0;}
-.item .nm{font-weight:600;font-size:16px;}
-.item .sb{font-size:13px;color:var(--sub);margin-top:3px;}
-.item .tg{margin-top:6px;display:flex;gap:5px;flex-wrap:wrap;}
-.item .tg span{background:var(--chip);border-radius:999px;padding:2px 9px;font-size:11.5px;color:#9A7B5F;}
-.item .del{border:none;background:none;color:#D5C4B2;font-size:18px;padding:6px;cursor:pointer;}
+.item .nm{font-weight:700;font-size:16px;}
+.item .sb{font-size:13px;color:var(--sub2);margin-top:3px;}
+.item .tg{margin-top:7px;display:flex;gap:6px;flex-wrap:wrap;}
+.item .tg span{background:var(--chip);border-radius:999px;padding:3px 10px;font-size:11.5px;color:#9A7B5F;}
+.item .del{border:none;background:#F6EEE3;color:#C3AE97;font-size:15px;width:32px;height:32px;border-radius:50%;
+  flex:none;cursor:pointer;box-shadow:inset 0 1px 0 var(--hl);}
 
 /* ---- 设置 ---- */
-.set-row{display:flex;justify-content:space-between;align-items:center;padding:14px 2px;border-bottom:1px solid var(--line);font-size:15px;}
+.set-row{display:flex;justify-content:space-between;align-items:center;padding:15px 4px;border-bottom:1px solid var(--line);font-size:15px;}
 .set-row:last-child{border-bottom:none;}
 .hist{padding:0;margin:6px 0 0;}
-.hist li{font-size:14px;color:var(--sub);padding:6px 0;list-style:none;}
+.hist li{font-size:14px;color:var(--sub2);padding:7px 0;list-style:none;}
 .danger{color:var(--danger);}
 
 /* ---- 底部导航 ---- */
-nav{position:fixed;left:0;right:0;bottom:0;background:rgba(255,253,250,.95);backdrop-filter:blur(12px);
-  border-top:1px solid var(--line);display:flex;padding-bottom:env(safe-area-inset-bottom);z-index:10;}
-nav button{flex:1;border:none;background:none;padding:8px 0 7px;font-size:11px;color:var(--sub);cursor:pointer;}
-nav button .ic{display:block;font-size:20px;margin:0 auto 3px;width:52px;padding:3px 0;border-radius:13px;
-  filter:grayscale(1);opacity:.5;transition:all .15s;}
-nav button.on{color:#8A6F52;font-weight:700;}
-nav button.on .ic{filter:none;opacity:1;background:var(--chip);}
+nav{position:fixed;left:0;right:0;bottom:0;background:rgba(252,248,242,.92);backdrop-filter:blur(14px);
+  border-top:1px solid rgba(255,255,255,.8);box-shadow:0 -6px 20px -12px rgba(150,116,80,.3);
+  display:flex;padding:6px 6px env(safe-area-inset-bottom);z-index:10;}
+nav button{flex:1;border:none;background:none;padding:7px 0 6px;font-size:11px;color:var(--sub2);cursor:pointer;font-weight:600;}
+nav button .ic{display:block;font-size:21px;margin:0 auto 3px;width:54px;padding:5px 0;border-radius:16px;
+  transition:transform .42s var(--spring),background .2s;}
+nav button:active .ic{transform:scale(.85);transition:transform .06s ease-out;}
+nav button.on{color:#8A6F52;}
+nav button.on .ic{background:linear-gradient(160deg,#F4E8D6,#EAD9BF);box-shadow:var(--soft-sm),inset 0 1px 0 var(--hl);transform:translateY(-2px) scale(1.05);}
 
-.confetti{position:fixed;font-size:24px;z-index:99;pointer-events:none;animation:fall 1.3s ease-in forwards;}
-@keyframes fall{to{transform:translateY(85vh) rotate(360deg);opacity:0;}}
+.confetti{position:fixed;font-size:24px;z-index:99;pointer-events:none;animation:fall 1.4s ease-in forwards;}
+@keyframes fall{to{transform:translateY(85vh) rotate(420deg);opacity:0;}}
+
+/* ---- 输入弹窗（替代 prompt，兼容微信内置浏览器） ---- */
+.modal-mask{position:fixed;inset:0;background:rgba(70,55,42,.4);backdrop-filter:blur(4px);
+  z-index:200;display:flex;align-items:center;justify-content:center;padding:26px;animation:fade .2s ease;}
+.modal-box{background:var(--card);border-radius:26px;padding:22px;width:100%;max-width:330px;
+  box-shadow:var(--soft),var(--inset);border:1px solid rgba(255,255,255,.7);animation:pop .35s var(--spring);}
+.modal-title{font-weight:800;font-size:17px;margin-bottom:14px;letter-spacing:.5px;}
 </style>
 </head>
 <body>
 <header>
-  <svg width="32" height="32" viewBox="0 0 512 512" aria-hidden="true">
-    <rect x="86" y="148" width="340" height="290" rx="58" fill="#B08968"/>
-    <rect x="86" y="148" width="340" height="98" rx="49" fill="#D4B499"/>
-    <rect x="86" y="200" width="340" height="46" fill="#D4B499"/>
-    <rect x="150" y="178" width="100" height="20" rx="10" fill="#E8D5C2"/>
-    <circle cx="188" cy="330" r="19" fill="#564A42"/>
-    <circle cx="324" cy="330" r="19" fill="#564A42"/>
-    <path d="M222 350 q34 32 68 0" stroke="#564A42" stroke-width="15" fill="none" stroke-linecap="round"/>
-    <circle cx="146" cy="368" r="21" fill="#DFA68F"/>
-    <circle cx="366" cy="368" r="21" fill="#DFA68F"/>
+  <svg width="34" height="34" viewBox="0 0 512 512" aria-hidden="true">
+    <rect x="86" y="148" width="340" height="290" rx="58" fill="#C49A6C"/>
+    <rect x="86" y="148" width="340" height="98" rx="49" fill="#E0BC8E"/>
+    <rect x="86" y="200" width="340" height="46" fill="#E0BC8E"/>
+    <rect x="150" y="178" width="100" height="20" rx="10" fill="#F1E0CB"/>
+    <circle cx="188" cy="330" r="19" fill="#574A3F"/>
+    <circle cx="324" cy="330" r="19" fill="#574A3F"/>
+    <path d="M222 350 q34 32 68 0" stroke="#574A3F" stroke-width="15" fill="none" stroke-linecap="round"/>
+    <circle cx="146" cy="368" r="21" fill="#E6A98F"/>
+    <circle cx="366" cy="368" r="21" fill="#E6A98F"/>
   </svg>
   <h1>今天吃什么</h1><span class="count" id="countTip"></span>
 </header>
@@ -119,25 +153,30 @@ nav button.on .ic{filter:none;opacity:1;background:var(--chip);}
 <!-- 抽签 -->
 <section id="v-pick" class="on">
   <div id="backupBanner" class="banner" style="display:none">
-    <span id="backupBannerText"></span><button onclick="go('set')">去备份</button>
+    <span id="backupBannerText"></span><button class="pop" onclick="go('set')">去备份</button>
   </div>
-  <div class="card">
-    <div class="muted" style="margin-bottom:9px">想吃哪类？（不选 = 全部）</div>
-    <div class="chips" id="pickCats"></div>
-    <div class="muted" style="margin:15px 0 9px">现在的心情？（可多选）</div>
-    <div class="chips" id="pickTags"></div>
-    <label class="opt"><input type="checkbox" id="skipRecent" checked>避开最近 3 天吃过的</label>
+  <div class="bento">
+    <div class="tile cat">
+      <div class="tile-h">🍱 想吃哪类</div>
+      <div class="chips" id="pickCats"></div>
+    </div>
+    <div class="tile mood">
+      <div class="tile-h">💭 现在的心情（可多选）</div>
+      <div class="chips" id="pickTags"></div>
+    </div>
   </div>
-  <button class="btn" id="pickBtn" onclick="doPick()">今天吃什么 🎲</button>
+  <label class="optline pop"><input type="checkbox" id="skipRecent" checked>避开最近 3 天吃过的</label>
+  <div style="height:14px"></div>
+  <button class="btn pop" id="pickBtn" onclick="doPick()">今天吃什么 🎲</button>
   <div class="card result" id="resultCard" style="display:none">
     <div class="emoji" id="rEmoji"></div>
     <h2 id="rName"></h2>
     <div class="src" id="rSrc"></div>
     <div class="tags" id="rTags"></div>
     <div class="note" id="rNote"></div>
-    <div class="row2" style="margin-top:20px">
-      <button class="btn ghost small" onclick="doPick(true)">换一个 🔄</button>
-      <button class="btn small" onclick="acceptPick()">就它了 🎉</button>
+    <div class="row2" style="margin-top:22px">
+      <button class="btn ghost small pop" onclick="doPick(true)">换一个 🔄</button>
+      <button class="btn small pop" onclick="acceptPick()">就它了 🎉</button>
     </div>
   </div>
 </section>
@@ -145,7 +184,7 @@ nav button.on .ic{filter:none;opacity:1;background:var(--chip);}
 <!-- 清单 -->
 <section id="v-list">
   <input type="text" id="searchBox" placeholder="🔍 搜索名称 / 店名 / 牌子…" oninput="renderList()" style="margin-bottom:4px">
-  <div class="chips" id="listTagFilter" style="margin:10px 0 2px"></div>
+  <div class="chips" id="listTagFilter" style="margin:12px 0 2px"></div>
   <div id="listBody"></div>
 </section>
 
@@ -163,26 +202,26 @@ nav button.on .ic{filter:none;opacity:1;background:var(--chip);}
     <label class="fl">备注（可选）</label>
     <textarea id="fNote" rows="2" placeholder="价格、地址、口味提醒…"></textarea>
   </div>
-  <button class="btn" onclick="saveItem()" id="saveBtn">保存 ✓</button>
-  <button class="btn ghost small" id="cancelEditBtn" style="display:none;margin-top:10px" onclick="resetForm();go('list')">取消编辑</button>
+  <button class="btn pop" onclick="saveItem()" id="saveBtn">保存 ✓</button>
+  <button class="btn ghost small pop" id="cancelEditBtn" style="display:none;margin-top:11px" onclick="resetForm();go('list')">取消编辑</button>
 </section>
 
 <!-- 设置 / 备份 -->
 <section id="v-set">
   <div class="card">
-    <div style="font-weight:700;margin-bottom:4px">📦 数据备份</div>
+    <div style="font-weight:800;margin-bottom:4px">📦 数据备份</div>
     <div class="muted" style="margin-bottom:14px">点「下载备份」后选「存储到文件」→ iCloud 云盘。数据丢失或换手机时，用「导入备份」恢复。</div>
     <div class="row2">
-      <button class="btn small" onclick="exportData()">⬇️ 下载备份</button>
-      <button class="btn ghost small" onclick="document.getElementById('importFile').click()">⬆️ 导入备份</button>
+      <button class="btn small pop" onclick="exportData()">⬇️ 下载备份</button>
+      <button class="btn ghost small pop" onclick="document.getElementById('importFile').click()">⬆️ 导入备份</button>
     </div>
     <input type="file" id="importFile" accept=".json,application/json,text/plain" style="display:none" onchange="importData(this)">
     <div class="muted" style="margin-top:12px" id="lastBackupTip"></div>
   </div>
   <div class="card">
-    <div style="font-weight:700">🍽️ 最近吃过</div>
+    <div style="font-weight:800">🍽️ 最近吃过</div>
     <ul class="hist" id="histList"></ul>
-    <button class="btn ghost small" style="margin-top:10px" onclick="clearHistory()">清空历史</button>
+    <button class="btn ghost small pop" style="margin-top:11px" onclick="clearHistory()">清空历史</button>
   </div>
   <div class="card">
     <div class="set-row"><span>清单条目</span><span class="muted" id="statItems"></span></div>
@@ -191,6 +230,18 @@ nav button.on .ic{filter:none;opacity:1;background:var(--chip);}
   <div class="muted" style="text-align:center;margin-top:6px">数据保存在本机 · 记得定期备份哦 🤎</div>
 </section>
 </main>
+
+<!-- 输入弹窗（替代 prompt） -->
+<div id="modalMask" class="modal-mask" style="display:none">
+  <div class="modal-box">
+    <div class="modal-title" id="modalTitle"></div>
+    <input type="text" id="modalInput" autocomplete="off">
+    <div class="row2" style="margin-top:18px">
+      <button class="btn ghost small pop" id="modalCancel">取消</button>
+      <button class="btn small pop" id="modalOk">确定</button>
+    </div>
+  </div>
+</div>
 
 <nav>
   <button id="nav-pick" class="on" onclick="go('pick')"><span class="ic">🎲</span>抽签</button>
@@ -313,7 +364,7 @@ function confetti(){
     s.style.left=(5+Math.random()*90)+'vw';s.style.top='-30px';
     s.style.animationDelay=(Math.random()*.4)+'s';
     document.body.appendChild(s);
-    setTimeout(function(el){return function(){el.remove();};}(s),1800);
+    setTimeout(function(el){return function(){el.remove();};}(s),1900);
   }
 }
 
@@ -331,7 +382,7 @@ function renderList(){
     return true;
   });
   if(!items.length){
-    body.innerHTML='<div class="empty"><div class="big">🥡</div>'+(state.items.length?'没有匹配的结果':'清单还是空的<br>点下方「➕ 添加」记下第一个想吃的吧')+'</div>';
+    body.innerHTML='<div class="empty"><span class="big">🥡</span>'+(state.items.length?'没有匹配的结果':'清单还是空的<br>点下方「➕ 添加」记下第一个想吃的吧')+'</div>';
     return;
   }
   var html='';
@@ -372,8 +423,42 @@ function renderForm(){
 }
 function setFCat(c){fSel.cat=c;renderForm();}
 function toggleFTag(t){var i=fSel.tags.indexOf(t);if(i>=0)fSel.tags.splice(i,1);else fSel.tags.push(t);renderForm();}
-function addCat(){var c=prompt('新分类名称：');if(c){c=c.trim();if(c&&state.cats.indexOf(c)<0){state.cats.push(c);save();}fSel.cat=c||fSel.cat;renderForm();}}
-function addTag(){var t=prompt('新标签（如：下雨天想吃）：');if(t){t=t.trim();if(t&&state.tags.indexOf(t)<0){state.tags.push(t);save();}if(t&&fSel.tags.indexOf(t)<0)fSel.tags.push(t);renderForm();}}
+
+/* 自建输入弹窗，替代被微信内置浏览器拦截的 window.prompt */
+function uiPrompt(title,placeholder,cb){
+  var mask=document.getElementById('modalMask');
+  var input=document.getElementById('modalInput');
+  var ok=document.getElementById('modalOk');
+  var cancel=document.getElementById('modalCancel');
+  document.getElementById('modalTitle').textContent=title;
+  input.value='';input.placeholder=placeholder||'';
+  mask.style.display='flex';
+  setTimeout(function(){try{input.focus();}catch(e){}},50);
+  function close(val){
+    mask.style.display='none';
+    ok.onclick=null;cancel.onclick=null;mask.onclick=null;input.onkeydown=null;
+    cb(val);
+  }
+  ok.onclick=function(){close(input.value);};
+  cancel.onclick=function(){close(null);};
+  mask.onclick=function(e){if(e.target===mask)close(null);};
+  input.onkeydown=function(e){if(e.key==='Enter'||e.keyCode===13){e.preventDefault();close(input.value);}};
+}
+function addCat(){
+  uiPrompt('新分类名称','如：汤品 / 主食',function(c){
+    if(c==null)return;c=c.trim();if(!c)return;
+    if(state.cats.indexOf(c)<0){state.cats.push(c);save();}
+    fSel.cat=c;renderForm();
+  });
+}
+function addTag(){
+  uiPrompt('新标签','如：下雨天想吃',function(t){
+    if(t==null)return;t=t.trim();if(!t)return;
+    if(state.tags.indexOf(t)<0){state.tags.push(t);save();}
+    if(fSel.tags.indexOf(t)<0)fSel.tags.push(t);
+    renderForm();
+  });
+}
 function saveItem(){
   var name=document.getElementById('fName').value.trim();
   if(!name){alert('先写个名称吧～');return;}
